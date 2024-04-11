@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import signIn from "./Login/Login";
 
 type LoginInputs = {
   email: string;
@@ -14,8 +15,7 @@ const LoginForm = () => {
     watch,
     formState: { errors },
   } = useForm<LoginInputs>();
-  const onSubmit: SubmitHandler<LoginInputs> = (data) =>
-    console.log("data", data);
+  const onSubmit: SubmitHandler<LoginInputs> = (data) => signIn(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">

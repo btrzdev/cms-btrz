@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import signIn from "./Login/Login";
+import signUp from "./Register/Register";
 
 type CreateUserInput = {
   firstName: string;
@@ -16,8 +18,7 @@ const CreateUserForm = () => {
     watch,
     formState: { errors },
   } = useForm<CreateUserInput>();
-  const onSubmit: SubmitHandler<CreateUserInput> = (data) =>
-    console.log("data", data);
+  const onSubmit: SubmitHandler<CreateUserInput> = (data) => signUp(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
@@ -37,6 +38,7 @@ const CreateUserForm = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
           placeholder="Your first name"
           {...register("firstName")}
+          minLength={1}
           required
         />
       </div>
@@ -53,6 +55,7 @@ const CreateUserForm = () => {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
           placeholder="Your last name"
           {...register("lastName")}
+          minLength={1}
           required
         />
       </div>
@@ -80,21 +83,26 @@ const CreateUserForm = () => {
           Password
         </label>
         <input
-          type="text"
+          type="password"
           id="Password"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
           placeholder="Password"
           {...register("password")}
           required
         />
+        <ul className="text-gray-500 text-[14px] mt-[10px]">
+          <li>- At least 8 caracters</li>
+          <li>- At least 1 number</li>
+          <li>- At least 1 special caracter</li>
+        </ul>
       </div>
 
       <button
         type="submit"
-        className="w-full text-white font-semibold text-sm h-[40px] rounded-md bg-gradient-to-r from-[#2A64DB] via-[#204EB6] to-[#193A8C]"
+        className="w-full hover:brightness-75 text-white font-semibold text-sm h-[40px] rounded-md bg-gradient-to-r from-[#2A64DB] via-[#204EB6] to-[#193A8C]"
       >
         {" "}
-        Sign In{" "}
+        Sign Up{" "}
       </button>
     </form>
   );

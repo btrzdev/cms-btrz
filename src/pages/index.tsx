@@ -17,7 +17,7 @@ export default function Home() {
             SOMETHING HERE
           </h1>
         </div>
-        <div className="w-full lg:w-[50%]  flex justify-center items-center">
+        <div className="w-full lg:w-[50%] flex justify-center items-center">
           <LoginForm />
         </div>
       </div>
