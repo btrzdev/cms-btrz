@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 async function signIn(credentials: Credentials) {
   try {
@@ -15,7 +16,9 @@ async function signIn(credentials: Credentials) {
         },
       }
     );
-    console.log(response);
+    if (response.status === 200) {
+      toast.success("Sucessful!");
+    }
   } catch (error) {
     console.error(error);
   }

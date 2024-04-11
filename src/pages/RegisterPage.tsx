@@ -1,4 +1,6 @@
 import CreateUserForm from "@/components/CreateUserForm";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RegisterPage() {
   return (
@@ -13,6 +15,7 @@ export default function RegisterPage() {
         <div className="w-full lg:w-[50%]  flex justify-center items-center">
           <CreateUserForm />
         </div>
+        <ToastContainer />
       </div>
     </main>
   );
