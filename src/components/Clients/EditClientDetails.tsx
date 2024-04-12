@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createClient } from "./Clients";
 import { FaXmark } from "react-icons/fa6";
+import Modal from "../Modal/Modal";
 
 interface CreateNewClient {
   data: Client[];
@@ -50,43 +51,45 @@ const EditClientDetails: React.FC<CreateNewClient> = ({
   //useEffect(() => console.log("Clients", data));
 
   return (
-    <div className="fixed w-[600px] p-10 bg-blue-100 rounded-md">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <button onClick={() => setShowEditClientModal(false)}>
-          <FaXmark className="absolute top-10 right-10" />
-        </button>
+    <Modal closeModal={setShowEditClientModal}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-5 w-[600px]"
+      >
         <h1 className="text-[35px] font-semibold">Edit client data</h1>
-        <div>
-          <label
-            htmlFor="firstName"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            First Name
-          </label>
-          <input
-            type="text"
-            id="firstName"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            defaultValue={clientDetails?.firstName}
-            {...register("firstName")}
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="lastName"
-            className="block mb-2 text-sm font-medium text-gray-900"
-          >
-            Last Name
-          </label>
-          <input
-            type="text"
-            id="lastname"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            defaultValue={clientDetails?.lastName}
-            {...register("lastName")}
-            required
-          />
+        <div className="flex gap-10">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
+              defaultValue={clientDetails?.firstName}
+              {...register("firstName")}
+              required
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="lastName"
+              className="block mb-2 text-sm font-medium text-gray-900"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastname"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
+              defaultValue={clientDetails?.lastName}
+              {...register("lastName")}
+              required
+            />
+          </div>
         </div>
         <div>
           <label
@@ -159,7 +162,7 @@ const EditClientDetails: React.FC<CreateNewClient> = ({
           Edit{" "}
         </button>
       </form>
-    </div>
+    </Modal>
   );
 };
 

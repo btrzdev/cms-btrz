@@ -3,6 +3,11 @@ type Credentials = {
   password: string;
 };
 
+type Schedule = {
+  description: string;
+  date: Date;
+};
+
 type CreateUser = {
   firstName: string;
   lastName: string;
@@ -19,5 +24,5 @@ type Client = {
   address: string;
   notes: string[];
   company?: string;
-  schedules?: Date[];
+  schedules?: Schedule[];
 };
