@@ -2,57 +2,72 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createClient } from "./Clients";
+import { FaXmark } from "react-icons/fa6";
 
 interface CreateNewClient {
   data: Client[];
+  clientDetails: Client | null | undefined;
+  setClientDetails: (value: Client) => void;
   setData: (value: Client[]) => void;
-  setShowModal: (value: boolean) => void;
+  setShowEditClientModal: (value: boolean) => void;
 }
 
-const CreateNewClient: React.FC<CreateNewClient> = ({
-  setShowModal,
+const EditClientDetails: React.FC<CreateNewClient> = ({
   data,
+  clientDetails,
+  setClientDetails,
   setData,
+  setShowEditClientModal,
 }) => {
   const {
     register,
+
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Client>();
 
-  const onSubmit: SubmitHandler<Client> = (newData) => {
-    const updatedData = [...data, newData];
+  const editSelectedItem = async (newData: any) => {
+    const getItemToRemoveItem = data.filter(
+      (item: Client) => item.email !== clientDetails?.email
+    );
+    console.log("To edit", getItemToRemoveItem);
+
+    const updatedData = [...getItemToRemoveItem, newData];
+    console.log("Updated data", updatedData);
     setData(updatedData);
-    createClient(updatedData);
+    await createClient(updatedData);
+
+    setClientDetails(newData);
+
+    setShowEditClientModal(false);
+  };
+
+  const onSubmit: SubmitHandler<Client> = async (newData) => {
+    editSelectedItem(newData);
   };
 
   //useEffect(() => console.log("Clients", data));
 
   return (
-    <div className="fixed w-[600px] p-10 bg-gray-200 rounded-md">
+    <div className="fixed w-[600px] p-10 bg-blue-100 rounded-md">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-        <button
-          className="text-[30px] absolute right-10 top-5"
-          type="button"
-          onClick={() => setShowModal(false)}
-        >
-          {" "}
-          x{" "}
+        <button onClick={() => setShowEditClientModal(false)}>
+          <FaXmark className="absolute top-10 right-10" />
         </button>
-        <h1 className="text-[35px] font-semibold">Add client</h1>
+        <h1 className="text-[35px] font-semibold">Edit client data</h1>
         <div>
           <label
             htmlFor="firstName"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            First Name*
+            First Name
           </label>
           <input
             type="text"
             id="firstName"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
+            defaultValue={clientDetails?.firstName}
             {...register("firstName")}
             required
           />
@@ -62,13 +77,13 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             htmlFor="lastName"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Last Name*
+            Last Name
           </label>
           <input
             type="text"
             id="lastname"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
+            defaultValue={clientDetails?.lastName}
             {...register("lastName")}
             required
           />
@@ -78,13 +93,13 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Email*
+            Email
           </label>
           <input
             type="text"
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
+            defaultValue={clientDetails?.email}
             {...register("email")}
             required
           />
@@ -94,13 +109,14 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             htmlFor="address"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
-            Adress*
+            Address
           </label>
           <input
             type="text"
             id="address"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
             {...register("address")}
+            defaultValue={clientDetails?.address}
             required
           />
         </div>
@@ -115,7 +131,7 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             type="text"
             id="company"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="......."
+            defaultValue={clientDetails?.company}
             {...register("company")}
           />
         </div>
@@ -130,21 +146,21 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             type="text"
             id="phone"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="......."
+            defaultValue={clientDetails?.phone}
             {...register("phone")}
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full text-white font-semibold text-sm h-[40px] rounded-md bg-green-600"
+          className="w-full text-white font-semibold text-sm h-[40px] rounded-md bg-blue-600"
         >
           {" "}
-          Add Client{" "}
+          Edit{" "}
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateNewClient;
+export default EditClientDetails;

@@ -18,14 +18,19 @@ export default function Dashboard() {
 
   const [data, setData] = useState(initialData);
   const [showModal, setShowModal] = useState(false);
-  const [clientDetails, setClientDetails] = useState([]);
+  const [clientDetails, setClientDetails] = useState<
+    Client | null | [x: string] | {}
+  >();
   const [showClientModal, setShowClientModal] = useState(false);
 
   const openModal = () => {
     setShowModal(true);
   };
 
-  console.log("client", clientDetails);
+  //const example = JSON.parse(localStorage.data);
+
+  //useEffect(() => console.log("Localstorage", example));
+  //console.log("client", clientDetails);
 
   const columns = useMemo(() => COLUMNS, []);
   const tableInstance = useTable({ columns, data });
@@ -56,6 +61,8 @@ export default function Dashboard() {
           setShowClientModal={setShowClientModal}
           clientDetails={clientDetails}
           setClientDetails={setClientDetails}
+          data={data}
+          setData={setData}
         />
       )}
       <div className="w-[1000px] text-[24px] rounded-md border-gray-300 p-[20px] border ">
