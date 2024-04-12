@@ -18,7 +18,8 @@ export default function Dashboard() {
 
   const [data, setData] = useState(initialData);
   const [showModal, setShowModal] = useState(false);
-  const [clientDetails, setClientDetails] = useState();
+  const [clientDetails, setClientDetails] = useState([]);
+  const [showClientModal, setShowClientModal] = useState(false);
 
   const openModal = () => {
     setShowModal(true);
@@ -49,10 +50,11 @@ export default function Dashboard() {
           setData={setData}
         />
       )}
-      {clientDetails && (
+      {showClientModal && (
         <ClientDetails
+          showClientModal={showClientModal}
+          setShowClientModal={setShowClientModal}
           clientDetails={clientDetails}
-          data={data[0]}
           setClientDetails={setClientDetails}
         />
       )}
@@ -100,7 +102,10 @@ export default function Dashboard() {
                   })}
                   <td>
                     <button
-                      onClick={() => setClientDetails(row.original)}
+                      onClick={() => {
+                        setClientDetails(row.original);
+                        setShowClientModal(true);
+                      }}
                       className="flex items-center gap-2 hover:text-blue-500"
                     >
                       <FaEye /> Details
