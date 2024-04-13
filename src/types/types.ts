@@ -8,6 +8,10 @@ type Schedule = {
   date: Date;
 };
 
+type Note = {
+  note: string;
+};
+
 type CreateUser = {
   firstName: string;
   lastName: string;
@@ -22,7 +26,7 @@ type Client = {
   email: string;
   phone: string;
   address: string;
-  notes: string[];
+  notes: Note[];
   company?: string;
   schedules?: Schedule[];
 };

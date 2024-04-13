@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { createClient } from "./Clients";
 
 interface ClientSchedulesProps {
   data: Client[];
+  setData: any;
   client: Client;
+  setShowCreateScheduleModal: any;
 }
 
-const ClientsSchedules: React.FC<ClientSchedulesProps> = ({ data, client }) => {
+const ClientsSchedulesModal: React.FC<ClientSchedulesProps> = ({
+  data,
+  setData,
+  client,
+  setShowCreateScheduleModal,
+}) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Schedule>();
 
@@ -19,25 +26,36 @@ const ClientsSchedules: React.FC<ClientSchedulesProps> = ({ data, client }) => {
 
   const [clientsUpdated, setClientsUpdated] = useState(oldClientsData);
 
-  const addNewSchedule = (newSchedule: Schedule[]) => {
-    const clientToAddSchedule = oldClientsData.find(
+  const addNewSchedule = async (newSchedule: Schedule) => {
+    const clientToAddSchedule = clientsUpdated.find(
       (item: Client) => item.email === client.email
     );
-    const updatedScheduleClients = {
+    const updatedSchedulesClient = {
       ...clientToAddSchedule,
       schedules: [...(clientToAddSchedule?.schedules ?? []), newSchedule],
     };
-    const dataClientsToUpdate = [...clientsUpdated, updatedScheduleClients];
-    console.log("clientDataCopy", clientDataCopy);
-    const dataWithClientRemove = dataClientsToUpdate.filter(
+
+    const removeDuplicatedClient = oldClientsData.filter(
       (item) =>
-        (item.email === clientDataCopy.email &&
-          (item.schedules?.length ?? 0) >= 1) ||
-        item.email !== clientDataCopy.email
+        item.email !== client.email ||
+        (item.email === client.email &&
+          (item.schedules?.length ?? 0) > (item.schedules?.length ?? 0) + 1)
     );
-    console.log("ClientToAddSchedule", dataWithClientRemove);
+
+    const dataClientsToUpdate = [
+      ...removeDuplicatedClient,
+      updatedSchedulesClient,
+    ];
+
+    createClient(dataClientsToUpdate);
+    setData(dataClientsToUpdate);
+    console.log("updatedSchedulesClient", updatedSchedulesClient);
+    console.log("removeDuplicatedClient", removeDuplicatedClient);
+    console.log("dataClientsToUpdate", dataClientsToUpdate);
+
+    setShowCreateScheduleModal(false);
   };
-  const onSubmit: SubmitHandler<Schedule> = (newSchedule) =>
+  const onSubmit: SubmitHandler<Schedule> = (newSchedule: Schedule) =>
     addNewSchedule(newSchedule);
   return (
     <form
@@ -94,4 +112,4 @@ const ClientsSchedules: React.FC<ClientSchedulesProps> = ({ data, client }) => {
     </form>
   );
 };
-export default ClientsSchedules;
+export default ClientsSchedulesModal;

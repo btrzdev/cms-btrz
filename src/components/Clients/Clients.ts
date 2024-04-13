@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-async function createClient(client: Client[]) {
+async function createClient(client: Client[] | Client) {
   try {
     localStorage.setItem("data", JSON.stringify(client));
     console.log(client);

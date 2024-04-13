@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import signIn from "./Login/Login";
+import { signIn, checkToken } from "./Login/Login";
 
 type LoginInputs = {
   email: string;
@@ -19,7 +19,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-      <h1 className="text-[40px] font-semibold">érre.cms</h1>
+      <h1 className="text-[40px] font-semibold">Sign in to your account</h1>
       <div>
         <label
           htmlFor="email"

@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import signIn from "./Login/Login";
 import signUp from "./Register/Register";
 
 type CreateUserInput = {
@@ -15,7 +14,6 @@ const CreateUserForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<CreateUserInput>();
   const onSubmit: SubmitHandler<CreateUserInput> = (data) => signUp(data);
@@ -23,7 +21,7 @@ const CreateUserForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div>
-        <h1 className="text-[40px] font-semibold">érre.cms</h1>
+        <h1 className="text-[40px] font-semibold">Create an account</h1>
       </div>
       <div>
         <label

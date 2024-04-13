@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createClient } from "./Clients";
+import { FaXmark } from "react-icons/fa6";
 
 interface CreateNewClient {
   data: Client[];
@@ -27,18 +28,14 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
     createClient(updatedData);
   };
 
-  //useEffect(() => console.log("Clients", data));
-
   return (
     <div className="fixed w-[600px] p-10 bg-gray-200 rounded-md">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <button
-          className="text-[30px] absolute right-10 top-5"
-          type="button"
           onClick={() => setShowModal(false)}
+          className="absolute top-10 right-10 rounded-[60px] hover:bg-gray-300 p-2"
         >
-          {" "}
-          x{" "}
+          <FaXmark size={25} />
         </button>
         <h1 className="text-[35px] font-semibold">Add client</h1>
         <div>
@@ -52,7 +49,6 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             type="text"
             id="firstName"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
             {...register("firstName")}
             required
           />
@@ -68,7 +64,6 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             type="text"
             id="lastname"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
             {...register("lastName")}
             required
           />
@@ -84,7 +79,6 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
             type="text"
             id="email"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
-            placeholder="youremail@email.com"
             {...register("email")}
             required
           />

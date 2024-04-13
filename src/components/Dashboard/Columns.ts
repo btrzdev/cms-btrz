@@ -11,8 +11,4 @@ export const COLUMNS = [
     Header: "Email",
     accessor: "email",
   },
-  {
-    Header: "",
-    accessor: "details",
-  },
 ];
