@@ -6,6 +6,7 @@ import Modal from "../Modal/Modal";
 import ClientsSchedules from "./ClientSchedulesModal";
 import ClientsNotesModal from "./ClientNotesModal";
 import { FaLocationPin } from "react-icons/fa6";
+import ClientConfirmDeleteModal from "./ClientConfirmDeleteModal";
 
 interface ClientDetailsProps {
   data: Client[];
@@ -25,6 +26,7 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
   const [showEditClientModal, setShowEditClientModal] = useState(false);
   const [showCreateScheduleModal, setShowCreateScheduleModal] = useState(false);
   const [showCreateNoteModal, setShowCreateNoteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const updatedClient = data.find(
@@ -76,7 +78,7 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => removeSelectedClient()}
+              onClick={() => setShowDeleteModal(true)}
               className="w-[200px] hover:brightness-75 text-white font-semibold text-md h-[40px] rounded-md bg-gradient-to-r  bg-red-600"
             >
               {" "}
@@ -204,6 +206,12 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
             data={data}
             client={clientDetails}
             setShowCreateNoteModal={setShowCreateNoteModal}
+          />
+        ) : null}
+        {showDeleteModal ? (
+          <ClientConfirmDeleteModal
+            deleteModal={removeSelectedClient}
+            setShowDeleteModal={setShowDeleteModal}
           />
         ) : null}
       </div>
