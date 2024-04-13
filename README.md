@@ -6,14 +6,16 @@ https://cms-btrz.vercel.app/
 
 To run on dev mode:
 
+```
 npx next dev -p 4200
+```
 
 Important!
-This project auth only works well on port 4200
+This project auth only works on port 4200 according API requests settings
 
 ## Project Structure
 
-´´´
+```
 cms-btrz/
 ├── pages/  # Next.js pages
 │   └── ...  # Other pages
@@ -25,7 +27,7 @@ cms-btrz/
 ├── next.config.js  # Next.js configuration
 ├── package.json  # Project metadata and dependencies
 └── tsconfig.json  # TypeScript configuration
-´´´
+```
 
 ## Dependencies
 
@@ -41,12 +43,15 @@ cms-btrz/
 
 - Sign Up - Create user
 - Login
+- Logout
+- Authenticated Dashboard route
 
 ## Dashboard - Clients
 
 - Retrieve client infos
 - Add client notes
 - Add client schedules
+- Edit client infos
 - Delete Client
 - Export client data as JSON
 - Search client by name
