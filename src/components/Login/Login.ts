@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 async function signIn(credentials: Credentials) {
@@ -28,21 +26,4 @@ async function signIn(credentials: Credentials) {
   }
 }
 
-async function checkToken() {
-  try {
-    const response = await axios.get(
-      "https://app.grupoerre.pt:1934/auth/check-authentication-status",
-
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log("Response", response);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export { signIn, checkToken };
+export { signIn };

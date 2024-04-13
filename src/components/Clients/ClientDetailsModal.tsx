@@ -5,6 +5,7 @@ import EditClientDetails from "./EditClientDetails";
 import Modal from "../Modal/Modal";
 import ClientsSchedules from "./ClientSchedulesModal";
 import ClientsNotesModal from "./ClientNotesModal";
+import { FaLocationPin } from "react-icons/fa6";
 
 interface ClientDetailsProps {
   data: Client[];
@@ -40,7 +41,6 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
     const getItemToRemoveItem = data.filter(
       (item: Client) => item.email !== clientDetails?.email
     );
-    //console.log("To remove", getItemToRemoveItem);
     setData(getItemToRemoveItem);
     createClient(getItemToRemoveItem);
 
@@ -105,18 +105,24 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
               Export JSON{" "}
             </button>
           </div>
-          <div className="flex gap-10">
-            <div className="flex gap-2 items-center">
-              <FaEnvelope style={{ color: "#2A64DB" }} size={25} />
-              <h4>{clientDetails?.email}</h4>
+          <div className="flex gap-10 flex-col">
+            <div className="flex gap-5">
+              <div className="flex gap-2 items-center">
+                <FaEnvelope color="#2A64DB" size={25} />
+                <h4>{clientDetails?.email}</h4>
+              </div>
+              <div className="flex gap-2 items-center">
+                <FaPhone color="#2A64DB" size={25} />
+                <h4>{clientDetails?.phone}</h4>
+              </div>
+              <div className="flex gap-2 items-center">
+                <FaBuilding color="#2A64DB" size={25} />
+                <h4>{clientDetails?.company}</h4>
+              </div>
             </div>
             <div className="flex gap-2 items-center">
-              <FaPhone style={{ color: "#2A64DB" }} size={25} />
-              <h4>{clientDetails?.phone}</h4>
-            </div>
-            <div className="flex gap-2 items-center">
-              <FaBuilding style={{ color: "#2A64DB" }} size={25} />
-              <h4>{clientDetails?.company}</h4>
+              <FaLocationPin color={"#2A64DB"} size={25} />
+              <h4>{clientDetails?.address}</h4>
             </div>
           </div>
           {showEditClientModal && (

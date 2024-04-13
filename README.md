@@ -1,3 +1,7 @@
+## Deploy
+
+https://cms-btrz.vercel.app/
+
 ## Instructions:##
 
 To run on dev mode:
@@ -7,27 +11,27 @@ npx next dev -p 4200
 Important!
 This project auth only works well on port 4200
 
-## Project Structure ##
+## Project Structure
 
 cms-btrz/
 │
-├── pages/             # Next.js pages
+├── pages/ # Next.js pages
 │ │
-│ ├── api/             # API routes
+│ ├── api/ # API routes
 │ │
-│ └── ...              # Other pages
+│ └── ... # Other pages
 │
-├── components/        # React components
+├── components/ # React components
 │
-├── styles/            # CSS and SCSS styles
+├── styles/ # CSS and SCSS styles
 │
-├── public/            # Static assets
+├── public/ # Static assets
 │
 │
-├── .eslintrc.json     # ESLint configuration
-├── next.config.js     # Next.js configuration
-├── package.json       # Project metadata and dependencies
-└── tsconfig.json      # TypeScript configuration
+├── .eslintrc.json # ESLint configuration
+├── next.config.js # Next.js configuration
+├── package.json # Project metadata and dependencies
+└── tsconfig.json # TypeScript configuration
 
 ## Dependencies
 

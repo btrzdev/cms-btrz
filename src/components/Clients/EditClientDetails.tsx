@@ -1,8 +1,6 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createClient } from "./Clients";
-import { FaXmark } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
 
 interface CreateNewClient {
@@ -30,10 +28,23 @@ const EditClientDetails: React.FC<CreateNewClient> = ({
     const getItemToRemoveItem = data.filter(
       (item: Client) => item.email !== clientDetails?.email
     );
-    console.log("To edit", getItemToRemoveItem);
 
-    const updatedData = [...getItemToRemoveItem, newData];
-    console.log("Updated data", updatedData);
+    const clientToEdit = data.find(
+      (item: Client) => item.email === clientDetails?.email
+    );
+
+    const updatedClient = {
+      ...clientToEdit,
+      ...newData,
+    };
+
+    const updatedData = [
+      ...getItemToRemoveItem.filter(
+        (item: Client) => item.email !== clientDetails?.email
+      ),
+      updatedClient,
+    ];
+
     setData(updatedData);
     await createClient(updatedData);
 
