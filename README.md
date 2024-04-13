@@ -13,25 +13,17 @@ This project auth only works well on port 4200
 
 ## Project Structure
 
-cms-btrz/
-│
-├── pages/ # Next.js pages
-│ │
-│ ├── api/ # API routes
-│ │
-│ └── ... # Other pages
-│
-├── components/ # React components
-│
-├── styles/ # CSS and SCSS styles
-│
-├── public/ # Static assets
-│
-│
-├── .eslintrc.json # ESLint configuration
-├── next.config.js # Next.js configuration
-├── package.json # Project metadata and dependencies
-└── tsconfig.json # TypeScript configuration
+-cms-btrz/
+-pages/ # Next.js pages
+... # Other pages
+-api/ # API routes
+-components/ # React components
+-styles/ # CSS and SCSS styles
+-public/ # Static assets
+-.eslintrc.json # ESLint configuration
+-next.config.js # Next.js configuration
+-package.json # Project metadata and dependencies
+-tsconfig.json # TypeScript configuration
 
 ## Dependencies
 
