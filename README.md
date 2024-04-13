@@ -29,11 +29,11 @@ cms-btrz/
 
 ## Dependencies
 
-axios: Promise-based HTTP client for making requests to APIs.
-react-hook-form: Form validation library for React.
-react-icons: Icon library for React applications.
-react-table: Lightweight and fast table library for React.
-react-toastify: Notification library for React applications.
+- axios: Promise-based HTTP client for making requests to APIs.
+- react-hook-form: Form validation library for React.
+- react-icons: Icon library for React applications.
+- react-table: Lightweight and fast table library for React.
+- react-toastify: Notification library for React applications.
 
 ## Features:
 
