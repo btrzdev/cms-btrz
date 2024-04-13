@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signIn, checkToken } from "./Login/Login";
+import { signIn } from "./Login/Login";
 
 type LoginInputs = {
   email: string;
@@ -12,7 +12,6 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginInputs>();
   const onSubmit: SubmitHandler<LoginInputs> = (data) => signIn(data);
@@ -44,7 +43,7 @@ const LoginForm = () => {
           Password
         </label>
         <input
-          type="text"
+          type="password"
           id="Password"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 p-3 focus:border-blue-500 block w-full"
           placeholder="......."
@@ -55,10 +54,7 @@ const LoginForm = () => {
       <span className="text-gray-600 text-[14px]">
         {" "}
         Dont have an account?{" "}
-        <Link
-          href="/RegisterPage"
-          className="hover:underline hover:text-blue-600"
-        >
+        <Link href="/register" className="hover:underline hover:text-blue-600">
           Register here
         </Link>
       </span>

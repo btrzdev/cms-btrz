@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import signUp from "./Register/Register";
+import Link from "next/link";
 
 type CreateUserInput = {
   firstName: string;
@@ -22,6 +23,13 @@ const CreateUserForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div>
         <h1 className="text-[40px] font-semibold">Create an account</h1>
+        <div className="text-[14px]">
+          <span> Do you already have an account? Click </span>
+          <Link href={"/"} className="hover:text-blue-500 hover:underline ">
+            here{" "}
+          </Link>
+          to login
+        </div>
       </div>
       <div>
         <label

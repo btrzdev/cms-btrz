@@ -18,7 +18,6 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Client>();
 
@@ -26,10 +25,11 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
     const updatedData = [...data, newData];
     setData(updatedData);
     createClient(updatedData);
+    setShowModal(false);
   };
 
   return (
-    <div className="fixed w-[600px] p-10 bg-gray-200 rounded-md">
+    <div className="fixed w-[600px] p-10 bg-gray-200 rounded-md z-50">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <button
           onClick={() => setShowModal(false)}
@@ -133,8 +133,7 @@ const CreateNewClient: React.FC<CreateNewClient> = ({
           type="submit"
           className="w-full text-white font-semibold text-sm h-[40px] rounded-md bg-green-600"
         >
-          {" "}
-          Add Client{" "}
+          Add Client
         </button>
       </form>
     </div>

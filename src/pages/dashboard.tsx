@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-key */
-"use client";
 import CreateNewClient from "@/components/Clients/CreateNewClient";
 import { COLUMNS } from "@/components/Dashboard/Columns";
 import { useEffect, useMemo, useState } from "react";
 import { useTable } from "react-table";
-import { FaEye, FaSearch } from "react-icons/fa";
+import { FaEye, FaSearch, FaSignOutAlt } from "react-icons/fa";
 import ClientDetailsModal from "@/components/Clients/ClientDetailsModal";
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -26,6 +25,8 @@ export default function Dashboard() {
     Client | null | [x: string] | {}
   >();
   const [showClientModal, setShowClientModal] = useState(false);
+  const [loader, setLoader] = useState(true);
+  const [username, setUsername] = useState("");
 
   const router = useRouter();
 
@@ -33,12 +34,23 @@ export default function Dashboard() {
     setShowModal(true);
   };
 
+  function parseJwt(token: string) {
+    return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+  }
+
   useEffect(() => {
     const tokenStorage = sessionStorage.getItem("token");
     console.log("token", tokenStorage);
     if (tokenStorage === "" || tokenStorage === null) {
       router.push("/");
     }
+    console.log("User", parseJwt(tokenStorage));
+    const userInfo = parseJwt(tokenStorage);
+    setUsername(userInfo.firstName);
+  }, []);
+
+  useEffect(() => {
+    setLoader(false);
   }, []);
 
   const columns = useMemo(() => {
@@ -73,17 +85,32 @@ export default function Dashboard() {
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: filteredData });
+  if (loader) {
+    return <p>Loading...</p>;
+  }
+
+  const logout = () => {
+    sessionStorage.clear();
+  };
 
   return (
     <main className={`flex min-h-screen flex-col items-center justify-center`}>
-      <div className="w-full h-[80px] bg-blue-600 absolute top-0 pl-10 pt-5">
+      <div className="w-full h-[80px] bg-blue-600 absolute top-0 pt-5 flex justify-between px-10 items-center pb-5">
         <Link href={"/"}>
           <Logo iconWidth={50} textSize={25} />
         </Link>
-      </div>
-      <div className="flex gap-5">
-        <FaSearch />
-        <input id="search" type="text" onChange={handleSearch} />
+        <div className="flex text-white gap-2">
+          <span>Welcome,</span>{" "}
+          <span className="font-semibold">{username}</span>
+          <a
+            href="#"
+            className="text-primary dark:text-primary-400"
+            data-twe-toggle="tooltip"
+            title="Click to logout"
+          >
+            <FaSignOutAlt color={"#ffff"} size={25} />
+          </a>
+        </div>
       </div>
 
       <button
@@ -101,7 +128,7 @@ export default function Dashboard() {
           setData={setData}
         />
       )}
-      {showClientModal && (
+      {showClientModal && clientDetails && (
         <ClientDetailsModal
           showClientModal={showClientModal}
           setShowClientModal={setShowClientModal}
@@ -112,52 +139,58 @@ export default function Dashboard() {
         />
       )}
       <div className="container absolute top-[200px]">
-        <div className="w-full px-4">
-          <table {...getTableProps()} className="table-auto w-full">
-            <thead className="bg-blue-600">
-              {headerGroups.map((headerGroup) => (
-                <tr
-                  {...headerGroup.getHeaderGroupProps()}
-                  className="bg-blue-600 text-left"
-                >
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      className="w-1/6  min-w-[160px] text-lg font-semibold text-white
+        <div className="bg-gray-100 p-2">
+          <div className="w-full p-2">
+            <div className="flex gap-5 mb-4 items-center">
+              <FaSearch />
+              <input
+                id="search"
+                placeholder="Search by name"
+                type="text"
+                onChange={handleSearch}
+                className="p-2"
+              />
+            </div>
+            <table {...getTableProps()} className="table-auto w-full">
+              <thead className="bg-blue-600">
+                {headerGroups.map((headerGroup) => (
+                  <tr
+                    {...headerGroup.getHeaderGroupProps()}
+                    className="bg-blue-600 text-left"
+                  >
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        {...column.getHeaderProps()}
+                        className="w-1/6  min-w-[160px] text-lg font-semibold text-white
                       py-4 lg:py-7 px-3 lg:px-4 border-l border-transparent"
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          className="text-left text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]"
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
+                      >
+                        {column.render("Header")}
+                      </th>
+                    ))}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            className="text-left text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-l border-[#E8E8E8]"
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>

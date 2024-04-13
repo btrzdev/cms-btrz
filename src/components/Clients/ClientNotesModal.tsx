@@ -20,19 +20,19 @@ const ClientsNotesModal: React.FC<ClientSchedulesProps> = ({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Schedule>();
+  } = useForm<Note>();
 
   const oldClientsData = data;
 
   const [clientsUpdated, setClientsUpdated] = useState(oldClientsData);
 
-  const addNewSchedule = async (newSchedule: Schedule) => {
+  const addNewNote = async (newNote: Note) => {
     const clientToAddSchedule = clientsUpdated.find(
       (item: Client) => item.email === client.email
     );
     const updatedSchedulesClient = {
       ...clientToAddSchedule,
-      notes: [...(clientToAddSchedule?.notes ?? []), newSchedule],
+      notes: [...(clientToAddSchedule?.notes ?? []), newNote],
     };
 
     const removeDuplicatedClient = oldClientsData.filter(
@@ -55,8 +55,7 @@ const ClientsNotesModal: React.FC<ClientSchedulesProps> = ({
 
     setShowCreateNoteModal(false);
   };
-  const onSubmit: SubmitHandler<Schedule> = (newSchedule: Schedule) =>
-    addNewSchedule(newSchedule);
+  const onSubmit: SubmitHandler<Note> = (newNote: Note) => addNewNote(newNote);
   return (
     <Modal closeModal={setShowCreateNoteModal}>
       <form

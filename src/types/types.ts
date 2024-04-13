@@ -26,7 +26,7 @@ type Client = {
   email: string;
   phone: string;
   address: string;
-  notes: Note[];
+  notes?: Note[];
   company?: string;
   schedules?: Schedule[];
 };

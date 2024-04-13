@@ -47,8 +47,6 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
     setShowClientModal(false);
   };
 
-  console.log("Schedules", clientDetails.schedules);
-
   const exportJsonClientData = (clientDetails: Client) => {
     const stringfiedData = JSON.stringify(clientDetails);
     const blob = new Blob([stringfiedData], {
@@ -142,10 +140,10 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
               <FaPlusSquare color={"#2A64DB"} size={25} />
             </button>
           </div>
-          <div className="bg-gray-200 w-[500px] max-h-[500px] gap-[10px] flex flex-col pt-[1px] px-5 overflow-y-scroll">
+          <div className="bg-gray-100 rounded-[20px] w-[500px] min-h-[500px] max-h-[500px] gap-[10px] flex flex-col pt-[1px] px-5 overflow-y-scroll">
             {clientDetails?.notes?.map((item: Note, index: number) => (
               <div
-                className="flex justify-between mt-5 w-[99%] bg-blue-100 border border-b-gray-300 h-auto p-10"
+                className="flex shadow-xl justify-between mt-5 w-[99%] bg-blue-100 border border-b-gray-300 h-auto p-10"
                 key={index}
               >
                 <span className="ml-[15px]"> {item.note}</span>
@@ -166,14 +164,17 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
               <FaPlusSquare color={"#2A64DB"} size={25} />
             </button>
           </div>
-          <div className="bg-gray-200 w-[500px] h-[500px] pt-10 flex flex-col  gap-5 rounded-[20px]">
+          <div className="bg-gray-100 w-[500px] h-[500px] pt-10 flex flex-col  gap-5 rounded-[20px]">
             {clientDetails?.schedules?.map((item: Schedule, index: number) => (
               <div
-                className="flex justify-between w-[99%] rounded-md border border-gray-500 bg-blue-100  border-b-gray-300 h-[40px]"
+                className="flex p-[10px] justify-between shadow-lg w-[99%] rounded-md border bg-blue-100  border-gray-100 px-10"
                 key={index}
               >
-                <span className="ml-[15px]"> {item.description}</span>
-                <p className="text-[18px] text-black" key={index}>
+                <span className="ml-[15px] font-semibold text-gray-600">
+                  {" "}
+                  {item.description}
+                </span>
+                <p className="text-[18px] text-gray-950" key={index}>
                   {new Date(item.date).toLocaleDateString() ?? ""}
                 </p>
               </div>

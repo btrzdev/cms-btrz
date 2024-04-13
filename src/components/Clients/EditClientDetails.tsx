@@ -22,9 +22,7 @@ const EditClientDetails: React.FC<CreateNewClient> = ({
 }) => {
   const {
     register,
-
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Client>();
 
@@ -47,8 +45,6 @@ const EditClientDetails: React.FC<CreateNewClient> = ({
   const onSubmit: SubmitHandler<Client> = async (newData) => {
     editSelectedItem(newData);
   };
-
-  //useEffect(() => console.log("Clients", data));
 
   return (
     <Modal closeModal={setShowEditClientModal}>

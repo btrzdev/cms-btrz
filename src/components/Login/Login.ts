@@ -21,7 +21,7 @@ async function signIn(credentials: Credentials) {
     sessionStorage.setItem("token", JSON.stringify(response.data?.token));
     if (response.status === 200) {
       toast.success("Sucessful!");
-      window.location.replace("/Dashboard");
+      window.location.replace("/dashboard");
     }
   } catch (error) {
     console.error(error);
