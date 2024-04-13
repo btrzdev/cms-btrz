@@ -21,9 +21,7 @@ export default function Dashboard() {
 
   const [data, setData] = useState(initialData);
   const [showModal, setShowModal] = useState(false);
-  const [clientDetails, setClientDetails] = useState<
-    Client | null | [x: string] | {}
-  >();
+  const [clientDetails, setClientDetails] = useState<Client>();
   const [showClientModal, setShowClientModal] = useState(false);
   const [loader, setLoader] = useState(true);
   const [username, setUsername] = useState("");
@@ -40,12 +38,10 @@ export default function Dashboard() {
 
   useEffect(() => {
     const tokenStorage = sessionStorage.getItem("token");
-    console.log("token", tokenStorage);
     if (tokenStorage === "" || tokenStorage === null) {
       router.push("/");
     }
-    console.log("User", parseJwt(tokenStorage));
-    const userInfo = parseJwt(tokenStorage);
+    const userInfo = parseJwt(String(tokenStorage));
     setUsername(userInfo.firstName);
   }, []);
 
@@ -58,8 +54,8 @@ export default function Dashboard() {
       ...COLUMNS,
       {
         Header: "",
-        accessor: "actions",
-        Cell: ({ row }) => (
+        accessor: "actions" as const,
+        Cell: ({ row }: any) => (
           <button
             onClick={() => {
               setClientDetails(row.original);
@@ -102,14 +98,16 @@ export default function Dashboard() {
         <div className="flex text-white gap-2">
           <span>Welcome,</span>{" "}
           <span className="font-semibold">{username}</span>
-          <a
-            href="#"
-            className="text-primary dark:text-primary-400"
-            data-twe-toggle="tooltip"
-            title="Click to logout"
-          >
-            <FaSignOutAlt color={"#ffff"} size={25} />
-          </a>
+          <button onClick={() => logout()}>
+            <a
+              href="#"
+              className="text-primary dark:text-primary-400"
+              data-twe-toggle="tooltip"
+              title="Click to logout"
+            >
+              <FaSignOutAlt color={"#ffff"} size={25} />
+            </a>
+          </button>
         </div>
       </div>
 

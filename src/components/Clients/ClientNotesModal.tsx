@@ -30,7 +30,7 @@ const ClientsNotesModal: React.FC<ClientSchedulesProps> = ({
     const clientToAddSchedule = clientsUpdated.find(
       (item: Client) => item.email === client.email
     );
-    const updatedSchedulesClient = {
+    const updatedNotesClient = {
       ...clientToAddSchedule,
       notes: [...(clientToAddSchedule?.notes ?? []), newNote],
     };
@@ -42,16 +42,13 @@ const ClientsNotesModal: React.FC<ClientSchedulesProps> = ({
           (item.notes?.length ?? 0) > (item.notes?.length ?? 0) + 1)
     );
 
-    const dataClientsToUpdate = [
+    const dataClientsToUpdate: Client[] = [
       ...removeDuplicatedClient,
-      updatedSchedulesClient,
+      updatedNotesClient as Client,
     ];
 
     createClient(dataClientsToUpdate);
     setData(dataClientsToUpdate);
-    console.log("updatedSchedulesClient", updatedSchedulesClient);
-    console.log("removeDuplicatedClient", removeDuplicatedClient);
-    console.log("dataClientsToUpdate", dataClientsToUpdate);
 
     setShowCreateNoteModal(false);
   };

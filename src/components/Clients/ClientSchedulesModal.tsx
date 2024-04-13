@@ -44,14 +44,11 @@ const ClientsSchedulesModal: React.FC<ClientSchedulesProps> = ({
 
     const dataClientsToUpdate = [
       ...removeDuplicatedClient,
-      updatedSchedulesClient,
+      updatedSchedulesClient as Client,
     ];
 
     createClient(dataClientsToUpdate);
     setData(dataClientsToUpdate);
-    console.log("updatedSchedulesClient", updatedSchedulesClient);
-    console.log("removeDuplicatedClient", removeDuplicatedClient);
-    console.log("dataClientsToUpdate", dataClientsToUpdate);
 
     setShowCreateScheduleModal(false);
   };

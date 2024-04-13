@@ -4,6 +4,7 @@ export const COLUMNS: Column<{
   firstName: string;
   lastName: string;
   email: string;
+  actions: string;
 }>[] = [
   {
     Header: "First Name",

@@ -10,7 +10,7 @@ interface ClientDetailsProps {
   data: Client[];
   setData: (value: Client[]) => void;
   clientDetails: Client;
-  setClientDetails: (value: Client | null | undefined) => void;
+  setClientDetails: (value: Client | undefined) => void;
   showClientModal: boolean;
   setShowClientModal: (value: boolean) => void;
 }
@@ -32,7 +32,7 @@ const ClientDetailsModal: React.FC<ClientDetailsProps> = ({
     if (updatedClient) {
       setClientDetails(updatedClient);
     } else {
-      setClientDetails(null);
+      null;
     }
   }, [data, clientDetails, setClientDetails]);
 
